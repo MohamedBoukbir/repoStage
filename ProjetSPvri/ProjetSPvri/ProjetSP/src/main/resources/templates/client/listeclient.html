@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"	
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/_layout}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<!--//////////////////////////////////////////////////////////-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+	<a class="navbar-brand" href="#">Liste des clients</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+</nav>
+<!--//////////////////////////////////////////////////////////-->
+<div layout:fragment="content1">
+<!--	<h2>Liste des societes</h2>-->
+	<br>
+
+	
+	<p>
+		<a th:href="@{/addclient}" class="btn btn-outline-primary">Ajouter un client</a>
+	</p>
+	
+		<table class="table table-bordered">
+			<thead class="thead-light">
+				<tr>
+					<th>#</th>
+					<th>Nom de client</th>
+					<th>Prenom de client</th>
+					 <th>email</th>
+					<th>telephone</th>
+					<th>adresse</th>
+					<th class="text-center">Actions</th>
+				</tr>
+			</thead>
+
+		<tr th:each="cte : ${clients}">
+			<td></td>
+			<td th:text="${cte.nom}"></td>
+			<td th:text="${cte.prenom}"></td>
+			<td th:text="${cte.email}"></td>
+			<td th:text="${cte.telephone}"></td>
+			<td th:text="${cte.adresse}"></td>
+
+
+			<td>
+				<a th:href="@{societes-abonnements/{id_cte_recherche}(id_cte_recherche=${cte.id})}" class="btn btn-outline-success">Voir abonnements</a>
+				<a th:href="@{editclient/{id_cte}(id_cte=${cte.id})}" class="btn btn-outline-warning ">Modifier</a>
+				<a th:href="@{deleteclient/{id}(id=${cte.id})}" class="btn btn-outline-danger" id="btnSupprimer" onclick="clickOnDelete()">Supprimer</a>
+			</td>
+		</tr>
+		</table>
+	</div>
+<br>
+<a th:href="@{/home}" class="btn btn-primary btn-block  m-2">Retour</a>
+<div class="modal" tabindex="-1" role="dialog" id="confirm-modal">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>Voulez-vous supprimer cette societé ?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger">Supprimer</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+		function clickOnDelete(){
+			// alert("hhh")
+			$('#confirm-modal').modal(show())
+		}
+</script>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</html>
